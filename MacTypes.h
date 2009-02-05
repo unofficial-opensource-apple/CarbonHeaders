@@ -1,33 +1,12 @@
 /*
- * Copyright (c) 1985-2008 by Apple Inc.. All rights reserved.
- *
- * @APPLE_LICENSE_HEADER_START@
- * 
- * This file contains Original Code and/or Modifications of Original Code
- * as defined in and that are subject to the Apple Public Source License
- * Version 2.0 (the 'License'). You may not use this file except in
- * compliance with the License. Please obtain a copy of the License at
- * http://www.opensource.apple.com/apsl/ and read it before using this
- * file.
- * 
- * The Original Code and all software distributed under the License are
- * distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
- * EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
- * INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
- * Please see the License for the specific language governing rights and
- * limitations under the License.
- * 
- * @APPLE_LICENSE_HEADER_END@
- */
- 
-/*
-     File:       MacTypes.h
+     File:       CarbonCore/MacTypes.h
  
      Contains:   Basic Macintosh data types.
  
-     Version:    CarbonCore-769~1
-  
+     Version:    CarbonCore-653~1
+ 
+     Copyright:  © 1985-2005 by Apple Computer, Inc., all rights reserved.
+ 
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
  
@@ -38,12 +17,11 @@
 #define __MACTYPES__
 
 #ifndef __CONDITIONALMACROS__
-#include <ConditionalMacros.h>
+#include <CarbonCore/ConditionalMacros.h>
 #endif
 
 #include <stdbool.h>
 
-#include <sys/types.h>
 
 #include <AvailabilityMacros.h>
 
@@ -55,7 +33,7 @@
 extern "C" {
 #endif
 
-#pragma pack(push, 2)
+#pragma options align=mac68k
 
 
 /*
@@ -83,12 +61,22 @@ extern "C" {
 
 #endif
 
+/********************************************************************************
+
+    Special values
+
+        NULL        The C standard for an null pointer constant
+        nil         In Objective-C, a null id defined in <objc/objc.h>
+                    In C, an alias for NULL
+
+*********************************************************************************/
 #ifndef NULL
-#define NULL    __DARWIN_NULL
-#endif /* ! NULL */
+    #define NULL 0
+#endif
 #ifndef nil
-    #define nil NULL
-#endif /* ! nil */
+    #define nil 0
+#endif
+
 /********************************************************************************
 
     Base integer types for all target OS's and CPU's
@@ -272,12 +260,12 @@ typedef void *                          LogicalAddress;
 typedef const void *                    ConstLogicalAddress;
 typedef void *                          PhysicalAddress;
 typedef UInt8 *                         BytePtr;
-typedef unsigned long                   ByteCount;
-typedef unsigned long                   ByteOffset;
+typedef UInt32                          ByteCount;
+typedef UInt32                          ByteOffset;
 typedef SInt32                          Duration;
 typedef UnsignedWide                    AbsoluteTime;
 typedef UInt32                          OptionBits;
-typedef unsigned long                   ItemCount;
+typedef UInt32                          ItemCount;
 typedef UInt32                          PBVersion;
 typedef SInt16                          ScriptCode;
 typedef SInt16                          LangCode;
@@ -321,28 +309,7 @@ typedef ProcPtr                         UniversalProcPtr;
 
 typedef ProcPtr *                       ProcHandle;
 typedef UniversalProcPtr *              UniversalProcHandle;
-/********************************************************************************
 
-    RefCon Types
-    
-        For access to private data in callbacks, etc.; refcons are generally
-        used as a pointer to something, but in the 32-bit world refcons in
-        different APIs have had various types: pointer, unsigned scalar, and
-        signed scalar. The RefCon types defined here support the current 32-bit
-        usage but provide normalization to pointer types for 64-bit.
-        
-        PRefCon is preferred for new APIs; URefCon and SRefCon are primarily
-        for compatibility with existing APIs.
-        
-*********************************************************************************/
-typedef void *                          PRefCon;
-#if __LP64__
-typedef void *                          URefCon;
-typedef void *                          SRefCon;
-#else
-typedef UInt32                          URefCon;
-typedef SInt32                          SRefCon;
-#endif  /* __LP64__ */
 
 /********************************************************************************
 
@@ -440,7 +407,7 @@ typedef UInt16                          UniChar;
 typedef UInt16                          UTF16Char;
 typedef UInt8                           UTF8Char;
 typedef UniChar *                       UniCharPtr;
-typedef unsigned long                   UniCharCount;
+typedef UInt32                          UniCharCount;
 typedef UniCharCount *                  UniCharCountPtr;
 typedef unsigned char                   Str255[256];
 typedef unsigned char                   Str63[64];
@@ -778,7 +745,7 @@ SysBreakFunc(ConstStr255Param debuggerMsg)                    AVAILABLE_MAC_OS_X
 #endif
 
 
-#pragma pack(pop)
+#pragma options align=reset
 
 #ifdef __cplusplus
 }

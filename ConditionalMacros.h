@@ -1,33 +1,12 @@
 /*
- * Copyright (c) 1993-2008 by Apple Inc.. All rights reserved.
- *
- * @APPLE_LICENSE_HEADER_START@
- * 
- * This file contains Original Code and/or Modifications of Original Code
- * as defined in and that are subject to the Apple Public Source License
- * Version 2.0 (the 'License'). You may not use this file except in
- * compliance with the License. Please obtain a copy of the License at
- * http://www.opensource.apple.com/apsl/ and read it before using this
- * file.
- * 
- * The Original Code and all software distributed under the License are
- * distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
- * EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
- * INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
- * Please see the License for the specific language governing rights and
- * limitations under the License.
- * 
- * @APPLE_LICENSE_HEADER_END@
- */
-
-/*
-     File:       ConditionalMacros.h
+     File:       CarbonCore/ConditionalMacros.h
  
      Contains:   Set up for compiler independent conditionals
  
-     Version:    CarbonCore-769~1
-  
+     Version:    CarbonCore-653~1
+ 
+     Copyright:  © 1993-2005 by Apple Computer, Inc., all rights reserved
+ 
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
  
@@ -111,22 +90,10 @@
      gcc based compilers used on Mac OS X
    */
   #define PRAGMA_IMPORT               0
+  #define PRAGMA_STRUCT_ALIGN         1
   #define PRAGMA_ONCE                 0
-
-  #if __GNUC__ >= 4
-    #define PRAGMA_STRUCT_PACK          1
-    #define PRAGMA_STRUCT_PACKPUSH      1
-  #else
-    #define PRAGMA_STRUCT_PACK          0
-    #define PRAGMA_STRUCT_PACKPUSH      0
-  #endif
-
-  #if __LP64__
-    #define PRAGMA_STRUCT_ALIGN         0
-  #else
-    #define PRAGMA_STRUCT_ALIGN         1
-  #endif
-
+  #define PRAGMA_STRUCT_PACK          0
+  #define PRAGMA_STRUCT_PACKPUSH      0
   #define PRAGMA_ENUM_PACK            0
   #define PRAGMA_ENUM_ALWAYSINT       0
   #define PRAGMA_ENUM_OPTIONS         0
